@@ -1,0 +1,13 @@
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Lock the screen, no scrolling allowed */
+  background-color: #000;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
