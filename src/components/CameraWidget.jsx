@@ -59,7 +59,7 @@ export default function CameraWidget() {
       {/* Video Feed */}
       <Box sx={{ flex: 1, position: 'relative', backgroundColor: '#000' }}>
         <video 
-          src="/assets/camera-feed.mp4" 
+          src="https://www.pexels.com/download/video/33016018/" 
           autoPlay 
           loop 
           muted 
