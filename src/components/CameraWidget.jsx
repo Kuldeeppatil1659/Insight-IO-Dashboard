@@ -27,7 +27,7 @@ export default function CameraWidget() {
       {/* Video Feed */}
       <Box sx={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <video 
-          src="https://www.pexels.com/download/video/31901286/" 
+          src="/assets/camera-feed.mp4" 
           autoPlay 
           loop 
           muted 
