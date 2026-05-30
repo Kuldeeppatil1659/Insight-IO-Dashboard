@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 export default function CameraWidget() {
-  const [zoom, setZoom] = useState(50);
+  const [zoom, setZoom] = useState(0);
 
   const handleZoomChange = (event, newValue) => {
     setZoom(newValue);
@@ -14,26 +14,54 @@ export default function CameraWidget() {
     <Paper 
       elevation={6}
       sx={{ 
-        width: 380, 
-        height: 220, 
-        backgroundColor: '#0a0a0a', 
+        width: '100%', 
+        height: '100%', 
+        backgroundColor: '#000', 
         borderRadius: 3, 
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        display: 'flex',
-        overflow: 'hidden',
-        backdropFilter: 'blur(10px)'
+        border: '2px solid rgba(255, 255, 255, 0.2)',
+        position: 'relative', 
+        overflow: 'hidden', 
+        pointerEvents: 'auto'
       }}
     >
-      {/* Zoom Control Sidebar */}
-      <Box sx={{ 
-        width: 40, 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        py: 1
-      }}>
+      {/* Video Feed */}
+      <Box sx={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <video 
+          src="https://www.pexels.com/download/video/31901286/" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            transform: `scale(${1 + (zoom / 50)})`, 
+            transformOrigin: 'center center',
+            transition: 'transform 0.1s ease-out'
+          }}
+        />
+      </Box>
+
+      {/*Zoom Control Sidebar*/}
+      <Box 
+        onClick={(e) => e.stopPropagation()} 
+        onPointerDown={(e) => e.stopPropagation()}
+        sx={{ 
+          position: 'absolute',
+          left: 10,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+          backdropFilter: 'blur(4px)',
+          borderRadius: 8,
+          py: 1,
+          zIndex: 10 
+        }}
+      >
         <IconButton size="small" sx={{ color: 'white' }} onClick={() => setZoom(Math.min(zoom + 10, 100))}>
           <AddIcon fontSize="small" />
         </IconButton>
@@ -56,36 +84,18 @@ export default function CameraWidget() {
         </IconButton>
       </Box>
 
-      {/* Video Feed */}
-      <Box sx={{ flex: 1, position: 'relative', backgroundColor: '#000' }}>
-        <video 
-          src="https://www.pexels.com/download/video/33016018/" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'cover',
-            // Simulating a digital zoom effect locally for polish
-            transform: `scale(${1 + (zoom / 100)})`,
-            transition: 'transform 0.2s ease-out'
-          }}
-        />
-        
-        {/* Recording Indicator */}
-        <Box sx={{ 
-          position: 'absolute', 
-          top: 10, 
-          right: 10, 
-          width: 8, 
-          height: 8, 
-          borderRadius: '50%', 
-          backgroundColor: '#ff3333',
-          boxShadow: '0 0 8px #ff3333'
-        }} />
-      </Box>
+      {/* Live Recording Indicator*/}
+      <Box sx={{ 
+        position: 'absolute', 
+        top: 15, 
+        right: 15, 
+        width: 10, 
+        height: 10, 
+        borderRadius: '50%', 
+        backgroundColor: '#ff3333',
+        boxShadow: '0 0 10px #ff3333',
+        zIndex: 10
+      }} />
     </Paper>
   );
 }
